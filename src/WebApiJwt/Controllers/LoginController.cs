@@ -24,26 +24,22 @@ namespace WebApiJwt.Controllers
     {
         private readonly IConfiguration _configuration;
         private JwtTokenProvider _jwtTokenProvider;
-        
-        private AuthBLL _authBLL;
         public LoginController(IConfiguration configuration)
         {
             _configuration = configuration;
             _jwtTokenProvider = new JwtTokenProvider(_configuration);
-            _authBLL = new AuthBLL(_configuration);
-            
         }
 
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Post([FromBody]UserDTO userDTO)
         {
-            
-            var baseUser = _authBLL.CheckUser(userDTO); 
+            var authBLL = new AuthBLL();
+            var baseUser = authBLL.CheckUser(userDTO); 
             
             if(baseUser != null &&  baseUser.IsActive)
             {
-                if(_authBLL.Authenticate(baseUser, userDTO))
+                if(authBLL.Authenticate(baseUser, userDTO))
                 {
                     return Ok(_jwtTokenProvider.GenerateJwtToken(baseUser.Email, baseUser));
                 }
@@ -53,9 +49,9 @@ namespace WebApiJwt.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Protect()
         {
-            return Ok("protected area");
+            return Ok("PROTECTED AREA");
         }
 
     }
