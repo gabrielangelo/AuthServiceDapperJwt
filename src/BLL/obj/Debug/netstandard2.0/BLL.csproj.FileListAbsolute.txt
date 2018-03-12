@@ -20,3 +20,15 @@ C:/Users/Trilogo/Desktop/trilogo2/BLL/obj/Debug/netstandard2.0/BLL.pdb
 /home/gabriel/AuthServiceDapperJwt/src/BLL/obj/Debug/netstandard2.0/BLL.AssemblyInfo.cs
 /home/gabriel/AuthServiceDapperJwt/src/BLL/obj/Debug/netstandard2.0/BLL.dll
 /home/gabriel/AuthServiceDapperJwt/src/BLL/obj/Debug/netstandard2.0/BLL.pdb
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\bin\Debug\netstandard2.0\BLL.deps.json
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\bin\Debug\netstandard2.0\BLL.dll
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\bin\Debug\netstandard2.0\BLL.pdb
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\bin\Debug\netstandard2.0\DAL.dll
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\bin\Debug\netstandard2.0\DOMAIN.dll
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\bin\Debug\netstandard2.0\DAL.pdb
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\bin\Debug\netstandard2.0\DOMAIN.pdb
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\obj\Debug\netstandard2.0\BLL.csproj.CoreCompileInputs.cache
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\obj\Debug\netstandard2.0\BLL.AssemblyInfoInputs.cache
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\obj\Debug\netstandard2.0\BLL.AssemblyInfo.cs
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\obj\Debug\netstandard2.0\BLL.dll
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\BLL\obj\Debug\netstandard2.0\BLL.pdb

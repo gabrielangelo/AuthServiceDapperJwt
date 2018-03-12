@@ -1,11 +1,3 @@
-C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/bin/Debug/netstandard2.0/DOMAIN.deps.json
-C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/bin/Debug/netstandard2.0/DOMAIN.dll
-C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/bin/Debug/netstandard2.0/DOMAIN.pdb
-C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.0/DOMAIN.csproj.CoreCompileInputs.cache
-C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.0/DOMAIN.AssemblyInfoInputs.cache
-C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.0/DOMAIN.AssemblyInfo.cs
-C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.0/DOMAIN.dll
-C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.0/DOMAIN.pdb
 /home/gabriel/AuthServiceDapperJwt/src/DOMAIN/bin/Debug/netstandard2.0/DOMAIN.deps.json
 /home/gabriel/AuthServiceDapperJwt/src/DOMAIN/bin/Debug/netstandard2.0/DOMAIN.dll
 /home/gabriel/AuthServiceDapperJwt/src/DOMAIN/bin/Debug/netstandard2.0/DOMAIN.pdb
@@ -14,3 +6,11 @@ C:/Users/Trilogo/Desktop/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.
 /home/gabriel/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.0/DOMAIN.AssemblyInfo.cs
 /home/gabriel/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.0/DOMAIN.dll
 /home/gabriel/AuthServiceDapperJwt/src/DOMAIN/obj/Debug/netstandard2.0/DOMAIN.pdb
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\DOMAIN\bin\Debug\netstandard2.0\DOMAIN.deps.json
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\DOMAIN\bin\Debug\netstandard2.0\DOMAIN.dll
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\DOMAIN\bin\Debug\netstandard2.0\DOMAIN.pdb
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\DOMAIN\obj\Debug\netstandard2.0\DOMAIN.csproj.CoreCompileInputs.cache
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\DOMAIN\obj\Debug\netstandard2.0\DOMAIN.AssemblyInfoInputs.cache
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\DOMAIN\obj\Debug\netstandard2.0\DOMAIN.AssemblyInfo.cs
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\DOMAIN\obj\Debug\netstandard2.0\DOMAIN.dll
+C:\Users\Trilogo\Desktop\AuthServiceDapperJwt\src\DOMAIN\obj\Debug\netstandard2.0\DOMAIN.pdb

@@ -35,33 +35,19 @@ namespace WebApiJwt
             //services.AddDbContext<ApplicationDbContext>();
             services.AddTransient<UsersDAL>();
             // ===== Add Jwt Authentication ========
-             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
-            services
-                .AddAuthentication(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    
-                })
-                .AddJwtBearer(cfg =>
-                {
-                    cfg.RequireHttpsMetadata = false;
-                    cfg.SaveToken = true;
-                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
                         ValidIssuer = Configuration["JwtIssuer"],
                         ValidAudience = Configuration["JwtIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
-                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
-                    };
-                });
-
-                services.AddAuthorization(auth =>
-                {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build());
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"]))
+                    };                
                 });
 
             // ===== Add MVC ========
@@ -72,7 +58,6 @@ namespace WebApiJwt
         public void Configure(
             IApplicationBuilder app, 
             IHostingEnvironment env
-           // ApplicationDbContext dbContext
         )
         {
             if (env.IsDevelopment())
@@ -83,9 +68,6 @@ namespace WebApiJwt
             // ===== Use Authentication ======
             app.UseAuthentication();
             app.UseMvc();
-
-            // ===== Create tables ======
-            //dbContext.Database.EnsureCreated();
         }
     }
 }

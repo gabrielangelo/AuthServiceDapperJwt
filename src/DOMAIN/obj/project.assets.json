@@ -177,23 +177,23 @@
     ]
   },
   "packageFolders": {
-    "/home/gabriel/.nuget/packages/": {},
-    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\Trilogo\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/gabriel/AuthServiceDapperJwt/src/DOMAIN/DOMAIN.csproj",
+      "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\DOMAIN\\DOMAIN.csproj",
       "projectName": "DOMAIN",
-      "projectPath": "/home/gabriel/AuthServiceDapperJwt/src/DOMAIN/DOMAIN.csproj",
-      "packagesPath": "/home/gabriel/.nuget/packages/",
-      "outputPath": "/home/gabriel/AuthServiceDapperJwt/src/DOMAIN/obj/",
+      "projectPath": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\DOMAIN\\DOMAIN.csproj",
+      "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\DOMAIN\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/gabriel/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"

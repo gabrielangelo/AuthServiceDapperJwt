@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Web;
 using BLL;
 using DOMAIN.DTOs;
 using WebApiJwt.Auth;
+using WebApiJwt.Resources;
 
 
 namespace WebApiJwt.Controllers
@@ -24,34 +26,44 @@ namespace WebApiJwt.Controllers
     {
         private readonly IConfiguration _configuration;
         private JwtTokenProvider _jwtTokenProvider;
+        private AuthBLL _authBLL;
+
         public LoginController(IConfiguration configuration)
         {
             _configuration = configuration;
             _jwtTokenProvider = new JwtTokenProvider(_configuration);
+            _authBLL = new AuthBLL();
         }
 
-        [AllowAnonymous]
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public IActionResult Post([FromBody]UserDTO userDTO)
         {
-            var authBLL = new AuthBLL();
-            var baseUser = authBLL.CheckUser(userDTO); 
+            var baseUser = _authBLL.CheckUser(userDTO); 
             
             if(baseUser != null &&  baseUser.IsActive)
             {
-                if(authBLL.Authenticate(baseUser, userDTO))
+                if(_authBLL.Authenticate(baseUser, userDTO))
                 {
-                    return Ok(_jwtTokenProvider.GenerateJwtToken(baseUser.Email, baseUser));
+                    var data = new {
+                        success=true,
+                        userId = baseUser.IdUser,
+                        token= _jwtTokenProvider.GenerateJwtToken(baseUser.Email, baseUser)
+                    };
+
+                    return Ok(new JsonPayloadPattern().JsonPayload(true, "", Ok().StatusCode, data));
                 }
             }
                 return Unauthorized();
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Protect()
         {
-            return Ok("PROTECTED AREA");
+            //the claims must be insert in the methods 
+            var userClaims = HttpContext.User.Claims.ToList();
+            var email = userClaims.FirstOrDefault(p => p.Type == ClaimTypes.Email).Value;
+
+            return Ok("PROTECTED AREA " + email );
         }
 
     }

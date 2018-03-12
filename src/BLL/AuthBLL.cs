@@ -1,22 +1,28 @@
 using System;
+using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using DOMAIN;
 using DAL;
 using DOMAIN.DTOs;
-using Microsoft.Extensions.Configuration;
 
-
-namespace BLL
+namespace BLL   
 {
     public class AuthBLL
     {
-        private readonly IConfiguration _configuration;
         private UsersDAL _usersDAL;
-        public AuthBLL(IConfiguration configuration)
+        
+        public AuthBLL()
         {
-            _configuration = configuration;
-            _usersDAL = new UsersDAL(_configuration);
+            _usersDAL = new UsersDAL();
         }
+
+        //Constructor to unit tests
+        public AuthBLL(UsersDAL usersDAL)
+        {
+            _usersDAL = usersDAL;
+        }
+
         public User CheckUser(UserDTO userDTO)
         {
             try
@@ -40,6 +46,13 @@ namespace BLL
             //without cryptografy for a while
             return true ? baseUserPassword == userDTOPassword: false;
         }
+
+        //###### Method must receive claims from httpcontext and build a user object;
+        //this method is fundamental to reuse user info
+        // public User GetLoggedUser(List<Claim> claims)
+        // {
+            
+        // }
 
        
     }

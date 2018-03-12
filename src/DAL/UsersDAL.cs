@@ -6,18 +6,17 @@ using Microsoft.Extensions.Configuration;
 using Dapper;
 using MySql.Data.MySqlClient;
 using DOMAIN.DTOs;
+using DAL.Data;
 
 namespace DAL
 {
     public class UsersDAL
     {
-        private readonly IConfiguration _configuration;
         private string _connectionString;
 
-        public UsersDAL(IConfiguration configuration)
+        public UsersDAL()
         {
-            _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("DefaultConnection");
+            _connectionString = new DbContext().GetConnection();
         }
 
         public User CheckUser(UserDTO user)
