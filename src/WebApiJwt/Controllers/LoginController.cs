@@ -12,10 +12,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Web;
-using BLL;
 using DOMAIN.DTOs;
 using WebApiJwt.Auth;
 using WebApiJwt.Resources;
+
 
 
 namespace WebApiJwt.Controllers
@@ -26,44 +26,67 @@ namespace WebApiJwt.Controllers
     {
         private readonly IConfiguration _configuration;
         private JwtTokenProvider _jwtTokenProvider;
-        private AuthBLL _authBLL;
+        private AuthUser _authUser;
+
+        private bool _success;
+
+        private bool _unsuccessful;
+
+        private PasswordHasher<User> _hashHelper;
+
 
         public LoginController(IConfiguration configuration)
         {
             _configuration = configuration;
             _jwtTokenProvider = new JwtTokenProvider(_configuration);
-            _authBLL = new AuthBLL();
+            _authUser = new AuthUser();
+            _success = true;
+            _unsuccessful = !_success;
+            _hashHelper = new PasswordHasher<User>();
+            
         }
 
         [HttpPost, AllowAnonymous]
         public IActionResult Post([FromBody]UserDTO userDTO)
         {
-            var baseUser = _authBLL.CheckUser(userDTO); 
+            var baseUser = this._authUser.CheckUser(userDTO); 
             
-            if(baseUser != null &&  baseUser.IsActive)
+            if(baseUser != null && baseUser.IsActive)
             {
-                if(_authBLL.Authenticate(baseUser, userDTO))
+                if(this._authUser.Authenticate(baseUser, userDTO))
                 {
-                    var data = new {
-                        success=true,
-                        userId = baseUser.IdUser,
-                        token= _jwtTokenProvider.GenerateJwtToken(baseUser.Email, baseUser)
-                    };
+                    var tokenWithDate = _jwtTokenProvider.GenerateJwtToken(baseUser);
+                    var token =  tokenWithDate["token"];
+                    var expires_in = tokenWithDate["expires_in"];
 
-                    return Ok(new JsonPayloadPattern().JsonPayload(true, "", Ok().StatusCode, data));
+                    var data = new {
+                        success=_success,
+                        userId = baseUser.IdUser,
+                        token= token,
+                        expires_in = expires_in
+                        };
+
+                    return Ok(new JsonPayloadPattern().JsonPayload(_success, "", Ok().StatusCode, data));
                 }
             }
                 return Unauthorized();
         }
 
-        [HttpGet, Authorize]
+        [HttpPost("refresh_token"), Authorize]
+        public IActionResult RefreshToken([FromBody] UserDTO userDTO)
+        {
+            return this.Post(userDTO);
+        }
+        
+        [HttpGet("protect_area"), Authorize]
         public IActionResult Protect()
         {
             //the claims must be insert in the methods 
             var userClaims = HttpContext.User.Claims.ToList();
             var email = userClaims.FirstOrDefault(p => p.Type == ClaimTypes.Email).Value;
 
-            return Ok("PROTECTED AREA " + email );
+            return Ok(new JsonPayloadPattern().JsonPayload(
+                _success, "PROTECTED AREA " + email, Ok().StatusCode, null));
         }
 
     }

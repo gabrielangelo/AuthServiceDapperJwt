@@ -12856,23 +12856,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Trilogo\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/gabriel/.nuget/packages/": {},
+    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\WebApiJwt\\WebApiJwt.csproj",
+      "projectUniqueName": "/home/gabriel/AuthServiceDapperJwt/src/WebApiJwt/WebApiJwt.csproj",
       "projectName": "WebApiJwt",
-      "projectPath": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\WebApiJwt\\WebApiJwt.csproj",
-      "packagesPath": "C:\\Users\\Trilogo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\WebApiJwt\\obj\\",
+      "projectPath": "/home/gabriel/AuthServiceDapperJwt/src/WebApiJwt/WebApiJwt.csproj",
+      "packagesPath": "/home/gabriel/.nuget/packages/",
+      "outputPath": "/home/gabriel/AuthServiceDapperJwt/src/WebApiJwt/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Trilogo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/gabriel/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -12883,14 +12883,14 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\DOMAIN\\DOMAIN.csproj": {
-              "projectPath": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\DOMAIN\\DOMAIN.csproj"
+            "/home/gabriel/AuthServiceDapperJwt/src/DOMAIN/DOMAIN.csproj": {
+              "projectPath": "/home/gabriel/AuthServiceDapperJwt/src/DOMAIN/DOMAIN.csproj"
             },
-            "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\DAL\\DAL.csproj": {
-              "projectPath": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\DAL\\DAL.csproj"
+            "/home/gabriel/AuthServiceDapperJwt/src/DAL/DAL.csproj": {
+              "projectPath": "/home/gabriel/AuthServiceDapperJwt/src/DAL/DAL.csproj"
             },
-            "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\BLL\\BLL.csproj": {
-              "projectPath": "C:\\Users\\Trilogo\\Desktop\\AuthServiceDapperJwt\\src\\BLL\\BLL.csproj"
+            "/home/gabriel/AuthServiceDapperJwt/src/BLL/BLL.csproj": {
+              "projectPath": "/home/gabriel/AuthServiceDapperJwt/src/BLL/BLL.csproj"
             }
           }
         }

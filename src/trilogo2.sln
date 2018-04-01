@@ -6,9 +6,7 @@ MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiJwt", "WebApiJwt\WebApiJwt.csproj", "{5668E2BC-9621-49ED-B95F-81A866B3A205}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{98653B6C-30FC-4953-9625-98718F662FC1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{553D400B-76D2-45D3-88BC-49535E3B4A37}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +56,17 @@ Global
 		{553D400B-76D2-45D3-88BC-49535E3B4A37}.Release|x64.Build.0 = Release|x64
 		{553D400B-76D2-45D3-88BC-49535E3B4A37}.Release|x86.ActiveCfg = Release|x86
 		{553D400B-76D2-45D3-88BC-49535E3B4A37}.Release|x86.Build.0 = Release|x86
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Debug|x64.ActiveCfg = Debug|x64
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Debug|x64.Build.0 = Debug|x64
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Debug|x86.ActiveCfg = Debug|x86
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Debug|x86.Build.0 = Debug|x86
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Release|x64.ActiveCfg = Release|x64
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Release|x64.Build.0 = Release|x64
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Release|x86.ActiveCfg = Release|x86
+		{9FD77D21-83E5-4B80-953C-CB153B758EFA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

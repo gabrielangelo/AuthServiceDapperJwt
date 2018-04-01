@@ -18,12 +18,15 @@ namespace WebApiJwt.Auth
     {
         private readonly IConfiguration _configuration;       
 
+        private Dictionary<string, string> _tokenWithExpireDate;
+
         public JwtTokenProvider(IConfiguration configuration)
         {
             _configuration = configuration;
+            _tokenWithExpireDate = new Dictionary<string, string>();
         }
         
-        public string GenerateJwtToken(string email, User user)
+        public Dictionary<string, string> GenerateJwtToken(User user)
         {
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, user.IdUser.ToString()),
@@ -40,8 +43,11 @@ namespace WebApiJwt.Auth
               claims,
               expires: expires,
               signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            
+            _tokenWithExpireDate["token"] = new JwtSecurityTokenHandler().WriteToken(token);
+            _tokenWithExpireDate["expires_in"] = expires.ToString();
+            
+            return _tokenWithExpireDate;
         }
     }
 }

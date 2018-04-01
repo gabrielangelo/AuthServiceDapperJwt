@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\DOMAIN\DOMAIN.csproj" />
+     <!-- <ProjectReference Include="..\Helpers\Helpers.csproj" />  -->
   </ItemGroup>
 
   <PropertyGroup>
