@@ -32,9 +32,6 @@ namespace WebApiJwt.Controllers
 
         private bool _unsuccessful;
 
-        private PasswordHasher<User> _hashHelper;
-
-
         public LoginController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -42,8 +39,6 @@ namespace WebApiJwt.Controllers
             _authUser = new AuthUser();
             _success = true;
             _unsuccessful = !_success;
-            _hashHelper = new PasswordHasher<User>();
-            
         }
 
         [HttpPost, AllowAnonymous]
@@ -55,15 +50,17 @@ namespace WebApiJwt.Controllers
             {
                 if(this._authUser.Authenticate(baseUser, userDTO))
                 {
-                    var tokenWithDate = _jwtTokenProvider.GenerateJwtToken(baseUser);
-                    var token =  tokenWithDate["token"];
-                    var expires_in = tokenWithDate["expires_in"];
+                    var setTokens = _jwtTokenProvider.GenerateJwtUserToken(baseUser);
+                    var access_token =  setTokens["access_token"];
+                    var refresh_token = setTokens["refresh_token"];
+                    var refresh_token_expires_in = setTokens["refresh_token_expires_in"];
 
                     var data = new {
                         success=_success,
                         userId = baseUser.IdUser,
-                        token= token,
-                        expires_in = expires_in
+                        access_token= access_token,
+                        refresh_token = refresh_token,
+                        refresh_tokens_expires_in = setTokens["refresh_token_expires_in"]
                         };
 
                     return Ok(new JsonPayloadPattern().JsonPayload(_success, "", Ok().StatusCode, data));
@@ -75,7 +72,8 @@ namespace WebApiJwt.Controllers
         [HttpPost("refresh_token"), Authorize]
         public IActionResult RefreshToken([FromBody] UserDTO userDTO)
         {
-            return this.Post(userDTO);
+            return null;
+            // return this.Post(userDTO);
         }
         
         [HttpGet("protect_area"), Authorize]
@@ -84,6 +82,7 @@ namespace WebApiJwt.Controllers
             //the claims must be insert in the methods 
             var userClaims = HttpContext.User.Claims.ToList();
             var email = userClaims.FirstOrDefault(p => p.Type == ClaimTypes.Email).Value;
+            var teste = HttpContext.Items;
 
             return Ok(new JsonPayloadPattern().JsonPayload(
                 _success, "PROTECTED AREA " + email, Ok().StatusCode, null));
