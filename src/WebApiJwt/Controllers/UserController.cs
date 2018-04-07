@@ -48,6 +48,7 @@ namespace WebApiJwt.Controllers
                 throw ex;
             }
         }
+        
 
         [HttpPost, AllowAnonymous]
         public IActionResult Post([FromBody]UserDTO user)

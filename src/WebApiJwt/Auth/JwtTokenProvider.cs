@@ -11,23 +11,62 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using DAL;
+using DOMAIN.DTOs;
 
 
 namespace WebApiJwt.Auth
 {
     public class JwtTokenProvider
     {
-        private readonly IConfiguration _configuration;       
+        private readonly IConfiguration _configuration;    
 
-        private Dictionary<string, string> _tokenWithExpireDate;
+        private UsersDAL _userDAL;
+
+        private double _refresh_token_time_expires;
+
+        private double _access_token_time_expires;
+
+        private SymmetricSecurityKey _key;
+
+        private SigningCredentials _creds;
+
+
         // private jwthan
         public JwtTokenProvider(IConfiguration configuration)
         {
             _configuration = configuration;
-            _tokenWithExpireDate = new Dictionary<string, string>();
+            _userDAL = new UsersDAL();
+            _access_token_time_expires = Convert.ToDouble(_configuration["time_refresh_token_expires"]);
+            _refresh_token_time_expires = Convert.ToDouble(_configuration["time_access_token_expires"]);
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
+            _creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
+        }
+
+        private TokenDTO GetTokenDTO(User user, JwtSecurityToken accesToken, DateTime expires)
+        {
+            return new TokenDTO{
+                AccessToken = new AccessTokenDTO {
+                    token = new JwtSecurityTokenHandler().WriteToken(accesToken),
+                    expiresIn = expires
+                }, 
+                RefreshToken = this.CreateRefreshToken(user.IdUser)
+                };
+        }
+
+        private JwtSecurityToken GetAcessToken(Claim[] claims, 
+        DateTime expires)
+        {
+            return new JwtSecurityToken(
+              _configuration["JwtIssuer"],
+              _configuration["JwtIssuer"],
+              claims,
+              expires: expires,
+              signingCredentials: _creds
+              );
         }
         
-        public Dictionary<string, string> GenerateJwtUserToken(User user)
+        public TokenDTO GenerateJwtUserToken(User user)
         {
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, user.IdUser.ToString()),
@@ -36,53 +75,32 @@ namespace WebApiJwt.Auth
                 new Claim(JwtRegisteredClaimNames.NameId, user.IdUser.ToString())
                };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddMinutes(30);
-            var access_token = new JwtSecurityToken(
-              _configuration["JwtIssuer"],
-              _configuration["JwtIssuer"],
-              claims,
-              expires: expires,
-              signingCredentials: creds);
+            var expires = DateTime.Now.AddDays(_access_token_time_expires);
             
-            _tokenWithExpireDate["access_token"] = new JwtSecurityTokenHandler().WriteToken(access_token);
-            _tokenWithExpireDate["access_token_expires_in"] = expires.ToString();
-            
-            _tokenWithExpireDate["refresh_token"] = this.CreateRefreshToken(user.IdUser)["refresh_token"];
-            _tokenWithExpireDate["refresh_token_expires_in"] = this.CreateRefreshToken(
-                user.IdUser)["refresh_token_expires_in"];
-            
-            return _tokenWithExpireDate;
+            var access_token = this.GetAcessToken(claims, expires);
+            var tokens = this.GetTokenDTO(user, access_token, expires);
+            _userDAL.UpdateRefreshToken(tokens.RefreshToken.token, user.IdUser );
+            return tokens;
         }
 
-        public Dictionary<string, string> CreateRefreshToken(int userId)
+        public RefreshTokenDTO CreateRefreshToken(int userId)
         {
-            var now = DateTime.UtcNow;
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-                // new Claim(JwtRegisteredClaimNames.UniqueName, user.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.AddMinutes(30).ToString(), ClaimValueTypes.Integer64),
+                new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.AddDays(30).ToString(), ClaimValueTypes.Integer64),
+                new Claim(ClaimTypes.AuthorizationDecision, "is_refresh_token","true")
             };
 
-            var expires = DateTime.Now.AddMinutes(30);
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(_refresh_token_time_expires);
+            var access_token = this.GetAcessToken(claims, expires);
 
-            var access_token = new JwtSecurityToken(
-              _configuration["JwtIssuer"],
-              _configuration["JwtIssuer"],
-              claims,
-              expires: expires,
-              signingCredentials: creds);
-            
-            _tokenWithExpireDate["refresh_token"] = new JwtSecurityTokenHandler().WriteToken(access_token);
-            _tokenWithExpireDate["refresh_token_expires_in"] = expires.ToString();
-            
-            return _tokenWithExpireDate;
+            return new RefreshTokenDTO{
+                token = new JwtSecurityTokenHandler().WriteToken(access_token), 
+                expiresIn = expires
+            };
         }
-
     }
+
 }

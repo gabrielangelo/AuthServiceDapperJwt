@@ -42,5 +42,32 @@ namespace DAL
                 }
             }
         }
+
+        public User CheckRefreshToken(string refreshToken)
+        {
+            using( var conection = new MySqlConnection(_connectionString))
+            {
+                var result = 
+                conection.Query<User>(
+                    "SELECT * FROM User where refresh_token = @refreshToken", 
+                    new {refreshToken = refreshToken});
+                
+                return result.FirstOrDefault();
+            }
+        }
+
+        public void UpdateRefreshToken(string refreshToken, int userId)
+        {
+            using( var conection = new MySqlConnection(_connectionString))
+            {
+                using(var transaction = new TransactionScope())
+                {
+                    conection.Execute("UPDATE User SET refresh_token = @refreshToken where idUser = @userId", 
+                    new {refreshToken = refreshToken, userId = userId});
+                    transaction.Complete();
+                }
+                
+            }
+        }
     }
 }
