@@ -10,7 +10,7 @@ namespace WebApiJwt.Resources
                 success = success,
                 message = message, 
                 statusCode = statusCode, 
-                data = data
+                data
             };
             return payload;
         }

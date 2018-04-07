@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using DOMAIN;
 using DAL;
+using System.Security.Claims;
 
 namespace WebApiJwt
 {
@@ -48,6 +49,19 @@ namespace WebApiJwt
                         ValidAudience = Configuration["JwtIssuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"]))
                     };                
+                });
+
+            services.AddAuthorization(options =>
+                {
+                    options.AddPolicy("IsRefreshToken", policy =>
+                        policy.RequireAssertion(context =>
+                            context.User.HasClaim(c =>
+                                (c.Type == ClaimTypes.AuthorizationDecision && c.Value == "is_refresh_token"))));
+                    
+                    options.AddPolicy("IsNotRefreshToken", policy =>
+                        policy.RequireAssertion(context =>
+                            !context.User.HasClaim(c =>
+                                (c.Type == ClaimTypes.AuthorizationDecision && c.Value == "is_refresh_token"))));
                 });
 
             // ===== Add MVC ========
